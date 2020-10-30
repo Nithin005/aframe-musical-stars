@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>aframe-musical-stars</title>
+    <meta name="description" content="aframe-musical-stars" />
+    <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+    <script src="./components/inspector-button.js"></script>
+    <script src="https://unpkg.com/aframe-fractal-component/dist/aframe-fractal-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene inspector-button>
+      <a-assets>
+        <img id="gaiaspace" src="./assets/gaiaspace.png" />
+      </a-assets>
+      <a-curve id="track1">
+        <a-curve-point position="0 0 -100" visible></a-curve-point>
+        <a-curve-point position="-100 0 0"></a-curve-point>
+        <a-curve-point position="0 0 100"></a-curve-point>
+        <a-curve-point position="100 0 0"></a-curve-point>
+        
+        <a-curve-point position="0 0 -100"></a-curve-point>
+      </a-curve>
+      <!-- <a-draw-curve curveref="#track1" material="shader: line; color: red;" position="" rotation="" scale="" visible="" draw-curve=""></a-draw-curve> -->
+      <a-entity
+        id="audio"
+        sound="src: url(./assets/shooting_star.mp3); autoplay: true; positional: false"
+      >
+      </a-entity>
+
+      <!-- <a-entity star-system='count: 1000; radius: 250; depth: 0'></a-entity> -->
+      <!-- <a-entity
+     fractal='x: Math.cos(t)*100+Math.random()*10; y: Math.sin(t)*100+Math.random()*10; z: Math.random()*10-200; audioSource: #audio; colors: #4286f4, #cbff00, #b800c9, #00c9a4, #ff002e, #3aff00; scale: 0.5; fftSize: 512; points: 200;'
+     animation='property: rotation;from: 0 0 0;to: 0 0 360;dur: 200000;easing: linear;loop: true'>
+     </a-entity> -->
+      <a-entity
+        fractal="x: Math.random()*201-100; y: Math.random()*201-100; z: Math.random()*201-100; audioSource: #audio; colors: #4286f4, #cbff00, #b800c9, #00c9a4, #ff002e, #3aff00;scale: 2; pointSize: 0.1; fftSize: 512; points: 1000;"
+        animation="property: rotation;from: 0 0 0;to: 0 360 360;dur: 100000;easing: linear;loop: true"
+      >
+        >
+
+        <a-sky src="#gaiaspace" radius="2000" opacity="0.2"></a-sky>
+      </a-entity>
+
+      <!-- <a-entity
+        position='0 0 -400'
+        fractal='x: ( Math.cos(t * 0.01) * 2000 ) + Math.random() * 100; y: ( Math.sin(t * 0.01) * 2000 ) + Math.random() * 100; z: Math.random()*100; audioSource: #audio; colors: #4286f4, #cbff00, #b800c9, #00c9a4, #ff002e, #3aff00; scale: 0.1; fftSize: 512; pointSize: 4; points: 630;'
+        animation='property: rotation;from: 0 0 0;to: 0 360 360;dur: 100000;easing: linear;loop: true'>
+        </a-entity> -->
+      <a-sky color="#000000" radius="10000"></a-sky>
+      <a-entity id="rig">
+        <a-entity
+          id="camera"
+          camera
+          look-controls
+          alongpath="curve: #track1;dur:100000;loop: true"
+        >
+        </a-entity>
+      </a-entity>
+
+      <!--Tracked controls. -->
+      <a-entity hand-controls="hand: left"></a-entity>
+      <a-entity hand-controls="hand: right"></a-entity>
+    </a-scene>
+  </body>
+</html>
